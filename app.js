@@ -6,14 +6,9 @@ function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return
 function fix(u){var m=/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=view&)?id=)([\w-]+)/.exec(u||"");return m?"https://drive.google.com/thumbnail?id="+m[1]+"&sz=w1600":u}
 function safe(u){return /^https?:\/\//i.test(u||"")?u:""}
 function post(o){return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(o)}).then(function(r){return r.json()})}
-function matrix(){var L=["Sinhala","Tamil","English"],rows={},ord=[],used={},LC={Sinhala:"si",Tamil:"ta",English:"en"};
-C.cats.forEach(function(c){var x=/^(.*?)(?:\s+(English|Sinhala|Tamil))?(?:\s+(Junior|Intermediate|Senior|Open))?$/.exec(c),b=x[1]||c,l=x[2]||"",a=x[3]||"Open";if(!rows[b]){rows[b]={};ord.push(b)}(rows[b][l]=rows[b][l]||[]).push(a);used[l]=1});
-var cols=L.filter(function(l){return used[l]});if(used[""])cols.push("");
-var h='<table class="mx"><thead><tr><th scope="col">Competition</th>'+cols.map(function(l){return '<th scope="col" lang="'+(LC[l]||"en")+'">'+(l||"Any language")+"</th>"}).join("")+"</tr></thead><tbody>";
-ord.forEach(function(b){h+='<tr><th scope="row">'+esc(b)+"</th>"+cols.map(function(l){var a=rows[b][l];return '<td data-l="'+(l||"Any language")+'"'+(a?"":' class="no" aria-label="Not offered"')+">"+(a?esc(a.join(", ")):"–")+"</td>"}).join("")+"</tr>"});
-return h+"</tbody></table>"}
+function list(){return C.cats.map(function(c){return '<div class="card">'+esc(c)+"</div>"}).join("")}
 function render(){$("hl").textContent=C.headline;$("sub").textContent=C.sub;$("sub").style.display=C.sub?"":"none";$("ab").textContent=C.about;$("ct").textContent=C.contact;
-$("comps").innerHTML=matrix();
+$("comps").innerHTML=list();
 var r=$("rnr");r.href=safe(C.rules)||"#";
 var h=$("hero");if(C.hero){h.src=fix(C.hero);h.style.display="block"}else h.style.display="none";
 var l=$("lg");l.textContent="";if(C.logo){var i=document.createElement("img");i.src=fix(C.logo);i.alt="ISAC";l.appendChild(i)}else l.textContent="ISAC"}
@@ -40,7 +35,7 @@ function doLogin(code,email,b){if(b)b.disabled=true;msg("Loading…",true);
 post({action:"schoolLogin",code:code,email:email}).then(function(r){if(!r.ok){if($("er"))msg("Code and email do not match.",false,b);else loginForm();return}manage(r,code,email)}).catch(function(){msg("Network error. Try again.",false,b)})}
 function manage(r,code,email){var h='<h3>'+esc(r.school.name)+'</h3><p class="sub">School code '+r.school.code+'. 2 contestants per competition category. Open a category, enter the names and press its Save button. Each category is saved to the sheet separately. Contestant codes never change.</p>';
 C.cats.forEach(function(c){var rows="",filled=0;
-[1,2].forEach(function(n){var d=r.list.filter(function(x){return x.cat===c&&x.n===n})[0];if(d){if(d.name)filled++;rows+="<label>Contestant "+n+' · <span style="color:var(--brass-d)">'+d.code+'</span></label><input data-s="'+esc(d.sheet)+'" data-k="'+d.code+'" data-o="'+esc(d.name)+'" value="'+esc(d.name)+'" placeholder="Full name">'}});
+[1,2].forEach(function(n){var d=r.list.filter(function(x){return x.cat===c&&x.n===n})[0];if(d){if(d.name)filled++;rows+="<label>Contestant "+n+' · <span style="color:var(--gold)">'+d.code+'</span></label><input data-s="'+esc(d.sheet)+'" data-k="'+d.code+'" data-o="'+esc(d.name)+'" value="'+esc(d.name)+'" placeholder="Full name">'}});
 if(rows)h+='<details class="cat"><summary>'+esc(c)+' <span class="cnt">'+filled+"/2</span></summary>"+rows+'<div class="err cer"></div><div class="row" style="margin-top:6px"><button class="btn cs">Save</button></div></details>'});
 h+='<div class="row"><button class="btn alt" onclick="close_()">Close</button></div>';open_(h);
 [].forEach.call(document.querySelectorAll("#box details.cat"),function(box){var b=box.querySelector(".cs"),e=box.querySelector(".cer");
