@@ -38,7 +38,7 @@ h1 .gd{background:linear-gradient(180deg,var(--gold2),var(--gold3));-webkit-back
 /* sections */
 section{padding:clamp(36px,6vw,64px) 0;border-top:1px solid var(--line);scroll-margin-top:8px}
 h2{margin:0 0 20px;font:700 clamp(30px,4.4vw,44px)/1.1 var(--serif);letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
-.pre{white-space:pre-wrap;max-width:66ch;color:var(--cream)}
+.pre{white-space:pre-wrap;max-width:none;color:var(--cream)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
 .card{display:flex;align-items:center;min-height:62px;padding:12px 18px;background:rgba(11,6,3,.66);border:1px solid var(--line);border-left:3px solid var(--gold);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font:600 20px/1.2 var(--serif);letter-spacing:.02em;color:var(--cream);transition:border-color .2s,background .2s}
 .card:hover{border-color:var(--gold);background:rgba(231,189,98,.1)}
