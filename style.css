@@ -35,8 +35,6 @@ h1 .gd{background:linear-gradient(180deg,var(--gold2),var(--gold3));-webkit-back
 .when::before{content:"";width:9px;height:9px;background:var(--gold);transform:rotate(45deg);flex:none}
 .bt{display:flex;gap:12px;flex-wrap:wrap}
 #hero{display:none;width:100%;max-height:380px;object-fit:cover;margin-top:30px;border:1px solid var(--line)}
-.org{margin-top:clamp(32px,6vw,56px)}
-.org img{display:block;height:clamp(100px,14vw,150px);width:auto;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55))}
 /* sections */
 section{padding:clamp(36px,6vw,64px) 0;border-top:1px solid var(--line);scroll-margin-top:8px}
 h2{margin:0 0 20px;font:700 clamp(30px,4.4vw,44px)/1.1 var(--serif);letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
@@ -44,6 +42,9 @@ h2{margin:0 0 20px;font:700 clamp(30px,4.4vw,44px)/1.1 var(--serif);letter-spaci
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
 .card{display:flex;align-items:center;min-height:62px;padding:12px 18px;background:rgba(11,6,3,.66);border:1px solid var(--line);border-left:3px solid var(--gold);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font:600 20px/1.2 var(--serif);letter-spacing:.02em;color:var(--cream);transition:border-color .2s,background .2s}
 .card:hover{border-color:var(--gold);background:rgba(231,189,98,.1)}
+/* contact + logos */
+.cwrap{display:flex;justify-content:space-between;align-items:center;gap:24px 40px;flex-wrap:wrap}
+.cwrap .clogos{display:block;height:clamp(90px,12vw,130px);width:auto;max-width:100%;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55))}
 footer{padding:30px 0 44px;border-top:1px solid var(--line);color:var(--mu);font-size:14px;display:flex;justify-content:space-between;gap:8px 24px;flex-wrap:wrap}
 footer p{margin:0}
 /* dialog */
