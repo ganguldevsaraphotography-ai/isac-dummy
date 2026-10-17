@@ -1,2 +1,2 @@
 // Google Apps Script web app URL (Deploy > Manage deployments > Web app URL).
-window.ISAC_API = "https://script.google.com/macros/s/AKfycbzLoKjfkFTLQ_xvyo2DoPaFuk5emd8-R-2Oc2Zmmkydp2ZcfuH_9eZTi3hwP1JZN1KcBw/exec";
+window.ISAC_API = https://script.google.com/macros/s/AKfycbwDBCrpSj5FqUmaT4NwJl5Wz8vys4zH-u8NMYIO25x3a6jxNLqBHzVARkUG7wAFWHAa/exec;
