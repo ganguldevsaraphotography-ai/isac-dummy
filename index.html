@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +18,7 @@
     <nav aria-label="Main">
       <a href="#about">About</a>
       <a href="#competitions">Competitions</a>
+      <a href="#gallery" id="gnav">Gallery</a>
       <a class="rules" href="#" target="_blank" rel="noopener">Rules &amp; Regulations</a>
       <a href="#contact">Contact</a>
       <button class="btn ghost" id="login">School login</button>
@@ -31,6 +33,7 @@
   </div>
   <section id="about"><h2>About</h2><div class="pre" id="ab"></div></section>
   <section id="competitions"><h2>Competitions</h2><div class="grid" id="comps"></div></section>
+  <section id="gallery"><h2>Gallery</h2><div class="gal" id="gal"></div></section>
   <section id="contact">
     <div class="cwrap">
       <div>
@@ -44,6 +47,12 @@
     <p>© ACBU 2026</p>
     <p>Webpage designed and developed by Gangul Devsara</p>
   </footer>
+</div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lbx" id="lbx" aria-label="Close">&times;</button>
+  <button class="lbn lbp" id="lbp" aria-label="Previous photo">&#8249;</button>
+  <figure><img id="lbi" alt=""><figcaption id="lbc"></figcaption></figure>
+  <button class="lbn" id="lbnx" aria-label="Next photo">&#8250;</button>
 </div>
 <div class="ov" id="ov" role="dialog" aria-modal="true"><div class="box" id="box"></div></div>
 <script src="config.js"></script>
