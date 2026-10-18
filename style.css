@@ -45,6 +45,22 @@ h2{margin:0 0 20px;font:700 clamp(30px,4.4vw,44px)/1.1 var(--serif);letter-spaci
 /* contact + logos */
 .cwrap{display:flex;justify-content:space-between;align-items:center;gap:24px 40px;flex-wrap:wrap}
 .cwrap .clogos{display:block;height:clamp(90px,12vw,130px);width:auto;max-width:100%;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55))}
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.gal figure{margin:0;position:relative;overflow:hidden;aspect-ratio:4/3;border:1px solid var(--line);background:rgba(11,6,3,.66);cursor:pointer}
+.gal img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.gal figure:hover img,.gal figure:focus-visible img{transform:scale(1.05)}
+.gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 14px 10px;font:600 17px/1.25 var(--serif);color:var(--cream);background:linear-gradient(180deg,transparent,rgba(9,5,2,.85))}
+.lb{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;gap:12px;padding:16px;background:rgba(6,3,1,.94)}
+.lb.on{display:flex}
+.lb figure{margin:0;max-width:100%;text-align:center}
+.lb img{display:block;max-width:100%;max-height:82vh;margin:0 auto;border:1px solid var(--gold3)}
+.lb figcaption{margin-top:10px;font:600 19px var(--serif);color:var(--gold2)}
+.lb button{cursor:pointer;border:1px solid var(--gold3);background:rgba(11,6,3,.7);color:var(--gold2);font:400 30px/1 var(--serif);width:46px;height:46px;flex:none}
+.lb button:hover{background:rgba(231,189,98,.18)}
+.lbx{position:absolute;top:14px;right:14px}
+@media(max-width:700px){.lb{flex-wrap:wrap}.lb figure{order:-1;width:100%}.lbx{position:static;order:-2;margin-left:auto}}
+.glr{display:flex;gap:8px;align-items:center;margin:8px 0}.glr img{width:64px;height:48px;object-fit:cover;border:1px solid var(--line);flex:none}.glr input{flex:1;min-width:0}.glr .btn{padding:6px 10px;font-size:13px;flex:none}
 footer{padding:30px 0 44px;border-top:1px solid var(--line);color:var(--mu);font-size:14px;display:flex;justify-content:space-between;gap:8px 24px;flex-wrap:wrap}
 footer p{margin:0}
 /* dialog */
