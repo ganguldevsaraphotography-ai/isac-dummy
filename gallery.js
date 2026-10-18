@@ -3,14 +3,12 @@
    2. Add one line per photo below (cap is optional). Remove the "//" at the start of the line.
    While the list is empty, the Gallery section and its menu link stay hidden. */
 var GALLERY=[
-  {src:"gallery/photo01.jpg"},
   {src:"gallery/photo02.jpg"},
   {src:"gallery/photo03.jpg"},
   {src:"gallery/photo04.jpg"},
   {src:"gallery/photo05.jpg"},
   {src:"gallery/photo06.jpg"},
   {src:"gallery/photo07.jpg"},
-  {src:"gallery/photo08.jpg"},
   {src:"gallery/photo09.jpg"},
   {src:"gallery/photo10.jpg"},
   {src:"gallery/photo11.jpg"},
