@@ -1,15 +1,19 @@
 var API=window.ISAC_API||"";
 /* set to true to show the "School login" button again */
 var LOGIN_OPEN=false;
+/* social links in the footer: paste the full https:// address; an icon only shows when its link is filled in */
+var SOCIAL={youtube:"https://www.youtube.com/@ACBUONLINE",whatsapp:"https://whatsapp.com/channel/0029Va64TPL1yT2GcrLuzk1R",facebook:"https://www.facebook.com/acbuonline/",instagram:"https://www.instagram.com/acbu.online/"};
 /* =================================================== */
 var DEF={headline:"Sri Lanka's premier trilingual media competition",sub:"Happening on 14 November 2026",about:"The Inter-School Announcing Competition (ISAC) is Sri Lanka's premier, state recognized trilingual student media tournament, organized by the Ananda College Broadcasting Unit, an institution with over 52 years of excellence since its founding on November 3, 1973.\n\nISAC attracts nearly 2,500 active competitors from over 250 schools island-wide. From programme presenting and news reading to news editing, podcasting, dubbing, and sports commentary, ISAC celebrates creativity, confidence, clarity, and the craft of communication.",contact:"Ginura Kariyawasam · +94 76 664 2605\nLithum Adhikari · +94 76 459 4612\nJanithu Jithmal · +94 70 127 2864\nSasindu Kodithuwakku · +94 76 449 8025",cats:["News Presenting Sinhala Junior", "News Presenting Sinhala Intermediate", "News Presenting Sinhala Senior", "News Presenting English Junior", "News Presenting English Intermediate", "News Presenting English Senior", "News Presenting Tamil Junior", "News Presenting Tamil Intermediate", "News Presenting Tamil Senior", "News Editing Sinhala Junior", "News Editing Sinhala Intermediate", "News Editing Sinhala Senior", "News Editing English Junior", "News Editing English Intermediate", "News Editing English Senior", "News Editing Tamil Junior", "News Editing Tamil Intermediate", "News Editing Tamil Senior", "Event Announcing Sinhala Junior", "Event Announcing Sinhala Intermediate", "Event Announcing Sinhala Senior", "Event Announcing English Junior", "Event Announcing English Intermediate", "Event Announcing English Senior", "Event Announcing Tamil Open", "Podcast Presenting Sinhala Open", "Podcast Presenting English Open", "Sports Commentary Sinhala Open", "Sports Commentary English Open", "Dubbing Sinhala Open", "Dubbing English Open", "Wild Card Sinhala Open", "Wild Card English Open", "News Blogging Sinhala Open", "News Blogging English Open", "News Template Sinhala Open", "News Template English Open"],rules:"",logo:"",hero:""};
 var C=Object.assign({},DEF),$=function(i){return document.getElementById(i)};
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function fix(u){var m=/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=view&)?id=)([\w-]+)/.exec(u||"");return m?"https://drive.google.com/thumbnail?id="+m[1]+"&sz=w1600":u}
+/* turns phone numbers in the contact text into tap-to-call links */
+function linkTel(t){return esc(t).replace(/\+?\d(?:[ -]?\d){8,}/g,function(m){return '<a href="tel:'+m.replace(/[^\d+]/g,"")+'">'+m+"</a>"})}
 function safe(u){return /^https?:\/\//i.test(u||"")?u:""}
 function post(o){return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(o)}).then(function(r){return r.json()})}
 function list(){return C.cats.map(function(c){return '<div class="card">'+esc(c)+"</div>"}).join("")}
-function render(){var hw=String(C.headline).trim().split(/\s+/);$("hl").innerHTML=hw.length>2?esc(hw.slice(0,-2).join(" "))+' <span class="gd">'+esc(hw.slice(-2).join(" "))+"</span>":esc(C.headline);$("sub").textContent=C.sub;$("sub").style.display=C.sub?"":"none";$("ab").textContent=C.about;$("ct").textContent=C.contact;
+function render(){var hw=String(C.headline).trim().split(/\s+/);$("hl").innerHTML=hw.length>2?esc(hw.slice(0,-2).join(" "))+' <span class="gd">'+esc(hw.slice(-2).join(" "))+"</span>":esc(C.headline);$("sub").textContent=C.sub;$("sub").style.display=C.sub?"":"none";$("ab").textContent=C.about;$("ct").innerHTML=linkTel(C.contact);
 $("comps").innerHTML=list();
 [].forEach.call(document.querySelectorAll(".rules"),function(r){r.href=safe(C.rules)||"#"});
 var h=$("hero");if(C.hero){h.src=fix(C.hero);h.style.display="block"}else h.style.display="none";
@@ -48,6 +52,7 @@ b.disabled=true;say("Saving…",true);
 post({action:"saveContestants",code:code,email:email,updates:ups}).then(function(x){b.disabled=false;if(x.ok){ins.forEach(function(i){i.dataset.o=i.value.trim()});box.querySelector(".cnt").textContent=ins.filter(function(i){return i.value.trim()}).length+"/"+ins.length;say("Saved to the sheet ✓",true)}else say("Save failed.")}).catch(function(){b.disabled=false;say("Network error. Try again.")})}})}
 $("reg").onclick=menu;$("login").onclick=loginForm;
 if(!LOGIN_OPEN)$("login").style.display="none";
+(function(){var any=false;["youtube","whatsapp","facebook","instagram"].forEach(function(k){var u=safe(SOCIAL[k]);if(u){$("s-"+k).href=u;$("s-"+k).hidden=false;any=true}});$("social").hidden=!any})();
 /* ---- admin panel: open with  yoursite/#admin  or Ctrl+Shift+L ---- */
 var pw="",up={};
 function shrink(f,max,type){return new Promise(function(ok,no){var im=new Image();im.onload=function(){var s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);ok(c.toDataURL(type,.88).split(",")[1])};im.onerror=no;im.src=URL.createObjectURL(f)})}
