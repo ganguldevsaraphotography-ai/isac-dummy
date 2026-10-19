@@ -80,12 +80,13 @@ h2{margin:0 0 20px;font:700 clamp(30px,4.4vw,44px)/1.1 var(--serif);letter-spaci
 .exr b{display:block;font:600 22px/1.4 var(--serif);letter-spacing:.02em;color:var(--cream)}
 @media(max-width:700px){.exrow{flex-direction:column}.exrow .exec{width:100%;max-width:420px}.exr{grid-template-columns:minmax(100px,40%) 1fr;gap:6px 14px;padding:14px 0}.exr b{font-size:19px}.trow{display:grid;grid-template-columns:1fr 1fr;gap:28px 20px}}
 /* social links */
-.social{display:flex;align-items:center;gap:12px}
+.fl p{margin:0}
+.social{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:16px}
 .social[hidden],.social a[hidden]{display:none}
-.social a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid var(--line);color:var(--gold2);transition:border-color .2s,background .2s,color .2s}
+.social a{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border:1px solid var(--line);background:rgba(11,6,3,.5);color:var(--gold2);transition:border-color .2s,background .2s,color .2s}
 .social a:hover{border-color:var(--gold);background:rgba(231,189,98,.14);color:var(--cream)}
-.social svg{width:20px;height:20px;fill:currentColor}
-footer{padding:30px 0 44px;border-top:1px solid var(--line);color:var(--mu);font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:14px 24px;flex-wrap:wrap}
+.social svg{width:26px;height:26px;fill:currentColor}
+footer{padding:30px 0 44px;border-top:1px solid var(--line);color:var(--mu);font-size:14px;display:flex;justify-content:space-between;align-items:flex-start;gap:18px 24px;flex-wrap:wrap}
 footer p{margin:0}
 /* dialog */
 .ov{position:fixed;inset:0;background:rgba(6,3,1,.78);display:none;align-items:center;justify-content:center;padding:14px;z-index:9}.ov.on{display:flex}
@@ -105,5 +106,5 @@ details.cat{border:1px solid var(--line);background:rgba(255,255,255,.04);margin
 details.cat[open]{border-color:var(--gold3)}
 details.cat summary{cursor:pointer;font:700 19px var(--serif);color:var(--gold2)}
 .cnt{float:right;font:500 14px var(--sans);color:var(--mu)}
-@media(max-width:700px){.top{justify-content:center;text-align:center}.top nav{justify-content:center}.logo img{height:52px}footer{flex-direction:column;text-align:center}}
+@media(max-width:700px){.top{justify-content:center;text-align:center}.top nav{justify-content:center}.logo img{height:52px}footer{flex-direction:column;align-items:center;text-align:center}.social{justify-content:center}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
