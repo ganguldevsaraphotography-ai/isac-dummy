@@ -1,6 +1,6 @@
 var API=window.ISAC_API||"";
 /* set to true to show the "School login" button again */
-var LOGIN_OPEN=false;
+var LOGIN_OPEN=true;
 /* social links in the footer: paste the full https:// address; an icon only shows when its link is filled in */
 /* WhatsApp group invite link for school coordinators (shown after a school registers). Leave "" to hide it. */
 var COORD_GROUP="https://chat.whatsapp.com/ClmxK2499JJ6aOx1UXrIgr?s=cl&p=i&mlu=4&ilr=4&iam=2";
