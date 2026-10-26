@@ -53,8 +53,8 @@ b.onclick=function(){var ins=[].slice.call(box.querySelectorAll("input[data-k]")
 if(!ups.length)return say("No changes to save in this category.");
 b.disabled=true;say("Saving…",true);
 post({action:"saveContestants",code:code,email:email,updates:ups}).then(function(x){b.disabled=false;if(x.ok){ins.forEach(function(i){i.dataset.o=i.value.trim()});box.querySelector(".cnt").textContent=ins.filter(function(i){return i.value.trim()}).length+"/"+ins.length;say("Saved to the sheet ✓",true)}else say("Save failed.")}).catch(function(){b.disabled=false;say("Network error. Try again.")})}})}
-$("reg").onclick=menu;$("login").onclick=loginForm;$("regteam").onclick=loginForm;$("login2").onclick=loginForm;
-if(!LOGIN_OPEN){$("login").style.display="none";$("bm").style.display="none"}
+$("reg").onclick=menu;$("login").onclick=loginForm;$("regteam").onclick=loginForm;
+if(!LOGIN_OPEN){$("login").style.display="none";$("regteam").style.display="none"}
 (function(){var any=false;["youtube","whatsapp","facebook","instagram"].forEach(function(k){var u=safe(SOCIAL[k]);if(u){$("s-"+k).href=u;$("s-"+k).hidden=false;any=true}});$("social").hidden=!any})();
 /* ---- admin panel: open with  yoursite/#admin  or Ctrl+Shift+L ---- */
 var pw="",up={};
