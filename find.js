@@ -5,9 +5,9 @@ var f=document.getElementById("frf");if(!f)return;
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 var inp=document.getElementById("frc"),msg=document.getElementById("frm"),res=document.getElementById("frr"),map=document.getElementById("frmap"),refs=document.getElementById("refs");
 /* where each numbered spot sits on site-map-single.jpg, in % of the image */
-var POS={1:[39.4,31.2],2:[26.6,32.1],3:[33.2,63.9],4:[49.6,78.7],5:[85.5,78.0],6:[27.1,89.9],7:[78.1,34.7],8:[11.2,52.4]};
+var POS={1:[39.4,31.2],2:[26.6,32.1],3:[33.2,63.9],4:[49.6,78.7],5:[85.5,78.0],6:[27.1,89.9],7:[78.1,34.7],8:[11.2,52.4],9:[40.7,58.2]};
 var SATH="Sathmahala",K="Kularathne Auditorium",ART="Art Section",BIO="Biology Section",G11="Grade 11 Section",TECH="Technology Section";
-function rm(r,where,sec,tag){return{r:r,w:where,s:sec,t:tag||""}}
+function rm(r,where,sec,tag,pos){return{r:r,w:where,s:sec,t:tag||"",p:pos||null}}
 function s1(r,t){return rm(r,SATH+" · 1st floor",2,t)}
 function s2(r,t){return rm(r,SATH+" · 2nd floor",2,t)}
 function s3(r,t){return rm(r,SATH+" · 3rd floor",2,t)}
@@ -39,7 +39,7 @@ var D={
 "Event Announcing English Senior":{c:[rm(K,"Main hall",1)],w:[s1("6^10","English event announcing waiting room")]},
 "Event Announcing Tamil Open":{c:[rm("11^9",G11+" · 1st floor",6)],w:[rm("11^10",G11+" · 1st floor",6)]},
 "Podcast Presenting Sinhala Open":{c:[rm(TECH,"",7)],w:[rm(TECH,"",7)]},
-"Podcast Presenting English Open":{c:[rm("ACRC Studios","Next to the Siyawasa building",1)],w:[s1("6^11","English podcast presenting waiting room")]},
+"Podcast Presenting English Open":{c:[rm("ACRC Studios","Building between the Siyawasa building and Olcott Hall (3)",9)],w:[s1("6^11","English podcast presenting waiting room")]},
 "Sports Commentary Sinhala Open":{c:[rm("13A1",ART+" · 1st floor",4)],w:[rm("12A2",ART+" · 2nd floor",4)]},
 "Sports Commentary English Open":{c:[rm("German Room",ART+" · 2nd floor",4)],w:[rm("12A1",ART+" · 2nd floor",4)]},
 "Dubbing Sinhala Open":{c:[rm("13B1",BIO+" · 2nd floor",5,"Senior"),rm("13BE1",BIO+" · 2nd floor",5,"Junior / Intermediate")],w:[rm("13B3",BIO+" · 2nd floor",5,"Sinhala Junior / Int. / Senior")]},
@@ -65,7 +65,7 @@ function clear(){res.hidden=true;res.innerHTML="";msg.textContent="";msg.classNa
  var ls=refs?refs.querySelectorAll("li"):[];for(var j=0;j<ls.length;j++)ls[j].className=""}
 function pins(c,w){
  var used={};
- function put(a,cls){(a||[]).forEach(function(x){var key=x.s+cls;if(used[key])return;used[key]=1;var p=POS[x.s];if(!p)return;
+ function put(a,cls){(a||[]).forEach(function(x){var key=(x.p?x.p.join():x.s)+cls;if(used[key])return;used[key]=1;var p=x.p||POS[x.s];if(!p)return;
   var e=document.createElement("span");e.className="pin k-"+cls;e.style.left=p[0]+"%";e.style.top=p[1]+"%";
   if(cls==="w"&&used[x.s+"c"])e.className+=" off";e.title=(cls==="c"?"Competition room":"Waiting room");map.appendChild(e);
   var li=refs.querySelector('[data-n="'+x.s+'"]');if(li&&li.className.indexOf("k-"+cls)<0)li.className=(li.className+" k-"+cls).trim()})}
