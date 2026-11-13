@@ -2,6 +2,7 @@
    A code starts with the initials of its category name (News Presenting Sinhala Junior = NPSJ...). */
 (function(){
 var f=document.getElementById("frf");if(!f)return;
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 var inp=document.getElementById("frc"),msg=document.getElementById("frm"),res=document.getElementById("frr"),map=document.getElementById("frmap"),refs=document.getElementById("refs");
 /* where each numbered spot sits on site-map-single.jpg, in % of the image */
 var POS={1:[39.4,31.2],2:[26.6,32.1],3:[33.2,63.9],4:[49.6,78.7],5:[85.5,78.0],6:[27.1,89.9],7:[78.1,34.7],8:[11.2,52.4]};
@@ -37,7 +38,7 @@ var D={
 "Event Announcing English Intermediate":{c:[rm("11^5",G11+" · 2nd floor",6)],w:[rm("11^6",G11+" · 2nd floor",6)]},
 "Event Announcing English Senior":{c:[rm(K,"Main hall",1)],w:[s1("6^10","English event announcing waiting room")]},
 "Event Announcing Tamil Open":{c:[rm("11^9",G11+" · 1st floor",6)],w:[rm("11^10",G11+" · 1st floor",6)]},
-"Podcast Presenting Sinhala Open":{c:[rm(TECH,"Competition room",7)],w:[rm(TECH,"Waiting room",7)]},
+"Podcast Presenting Sinhala Open":{c:[rm(TECH,"",7)],w:[rm(TECH,"",7)]},
 "Podcast Presenting English Open":{c:[rm("ACRC Studios","Next to the Siyawasa building",1)],w:[s1("6^11","English podcast presenting waiting room")]},
 "Sports Commentary Sinhala Open":{c:[rm("13A1",ART+" · 1st floor",4)],w:[rm("12A2",ART+" · 2nd floor",4)]},
 "Sports Commentary English Open":{c:[rm("German Room",ART+" · 2nd floor",4)],w:[rm("12A1",ART+" · 2nd floor",4)]},
@@ -49,26 +50,35 @@ var D={
 };
 var LIST=Object.keys(D).map(function(n){return{n:n,k:n.split(/\s+/).map(function(w){return w.charAt(0)}).join("").toUpperCase()}}).sort(function(a,b){return b.k.length-a.k.length});
 function sup(t){return esc(t).replace(/\^(\d+)/g,"<sup>$1</sup>")}
-function rows(a,cls,label){
- if(!a||!a.length)return '<div class="rb '+cls+'"><h4><i class="d '+cls+'"></i>'+label+'</h4><p class="rn">To be announced. Please check with the coordinators on the day.</p></div>';
- return '<div class="rb '+cls+'"><h4><i class="d '+cls+'"></i>'+label+'</h4>'+a.map(function(x){return '<div class="rr"><b>'+sup(x.r)+'</b><span>'+esc(x.w)+(x.t?" · "+esc(x.t):"")+'</span></div>'}).join("")+'</div>'}
-function clear(){res.hidden=true;res.innerHTML="";msg.textContent="";msg.className="frmsg";[].forEach.call(map.querySelectorAll(".pin"),function(p){p.remove()});[].forEach.call(refs.children,function(l){l.className=""})}
+function nm(x,cat,cls){var kind=cls==="c"?"Competition Room":"Waiting Room";
+ if(!/\d/.test(x.r))return x.r+(cls==="w"&&x.w&&/^Waiting/.test(x.w)?"":"");
+ var t=x.t||"";
+ if(/^(Competition|Waiting) Room \d$/i.test(t))return cat+" · "+t;
+ if(/room/i.test(t))return t;
+ return cat+" · "+kind+(t?" ("+t+")":"")}
+function rows(a,cls,label,cat){
+ if(!a||!a.length)return '<div class="rb k-'+cls+'"><h4><i class="d k-'+cls+'"></i>'+label+'</h4><p class="rn">To be announced. Please check with the coordinators on the day.</p></div>';
+ return '<div class="rb k-'+cls+'"><h4><i class="d k-'+cls+'"></i>'+label+'</h4>'+a.map(function(x){var named=!/\d/.test(x.r);
+  return '<div class="rr"><p class="rname">'+esc(nm(x,cat,cls))+'</p>'+((named&&!x.w)?'':'<p class="rloc">'+(named?'':'<b>Room '+sup(x.r)+'</b>')+(x.w?'<span>'+esc(x.w)+'</span>':'')+'</p>')+'</div>'}).join("")+'</div>'}
+function clear(){res.hidden=true;res.innerHTML="";msg.textContent="";msg.className="frmsg";
+ var ps=map?map.querySelectorAll(".pin"):[];for(var i=0;i<ps.length;i++){if(ps[i].parentNode)ps[i].parentNode.removeChild(ps[i])}
+ var ls=refs?refs.querySelectorAll("li"):[];for(var j=0;j<ls.length;j++)ls[j].className=""}
 function pins(c,w){
  var used={};
  function put(a,cls){(a||[]).forEach(function(x){var key=x.s+cls;if(used[key])return;used[key]=1;var p=POS[x.s];if(!p)return;
-  var e=document.createElement("span");e.className="pin "+cls;e.style.left=p[0]+"%";e.style.top=p[1]+"%";
+  var e=document.createElement("span");e.className="pin k-"+cls;e.style.left=p[0]+"%";e.style.top=p[1]+"%";
   if(cls==="w"&&used[x.s+"c"])e.className+=" off";e.title=(cls==="c"?"Competition room":"Waiting room");map.appendChild(e);
-  var li=refs.querySelector('[data-n="'+x.s+'"]');if(li&&li.className.indexOf(cls)<0)li.className=(li.className+" "+cls).trim()})}
+  var li=refs.querySelector('[data-n="'+x.s+'"]');if(li&&li.className.indexOf("k-"+cls)<0)li.className=(li.className+" k-"+cls).trim()})}
  put(c,"c");put(w,"w")}
-f.addEventListener("submit",function(e){e.preventDefault();clear();
+f.addEventListener("submit",function(e){e.preventDefault();try{lookup()}catch(x){msg.textContent="Something went wrong ("+(x&&x.message?x.message:x)+"). Please refresh the page and try again.";msg.className="frmsg bad";if(window.console)console.error(x)}});
+function lookup(){clear();
  var raw=inp.value.trim().toUpperCase().replace(/[^A-Z0-9]/g,"");
  if(!raw){msg.textContent="Enter your contestant code.";msg.className="frmsg bad";return}
  var hit=null,num=0;for(var i=0;i<LIST.length;i++){var k=LIST[i].k;if(raw.indexOf(k)===0){var rest=raw.slice(k.length);if(/^\d{1,2}$/.test(rest)&&+rest>=1&&+rest<=52){hit=LIST[i];num=+rest}break}}
  if(!hit){msg.textContent="We couldn't match that code. Codes look like NPSJ01 (category letters + number 01 to 52). Check it and try again.";msg.className="frmsg bad";return}
  var shown=hit.k+(num<10?"0":"")+num;
  var d=D[hit.n];
- res.innerHTML='<p class="rcat">'+esc(hit.n)+'</p><p class="rcode">'+esc(shown)+'</p>'+rows(d.c,"c","Competition room")+rows(d.w,"w","Waiting room")+(d.n?'<p class="rn">'+esc(d.n)+'</p>':"");
- res.hidden=false;pins(d.c,d.w);
-});
+ res.innerHTML='<p class="rcat">'+esc(hit.n)+'</p><p class="rcode">'+esc(shown)+'</p>'+rows(d.c,"c","Competition room",hit.n)+rows(d.w,"w","Waiting room",hit.n)+(d.n?'<p class="rn">'+esc(d.n)+'</p>':"");
+ res.hidden=false;try{pins(d.c,d.w)}catch(z){if(window.console)console.error(z)}}
 inp.addEventListener("input",function(){if(!inp.value.trim())clear()});
 })();
