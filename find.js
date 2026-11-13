@@ -74,8 +74,8 @@ f.addEventListener("submit",function(e){e.preventDefault();try{lookup()}catch(x)
 function lookup(){clear();
  var raw=inp.value.trim().toUpperCase().replace(/[^A-Z0-9]/g,"");
  if(!raw){msg.textContent="Enter your contestant code.";msg.className="frmsg bad";return}
- var hit=null,num=0;for(var i=0;i<LIST.length;i++){var k=LIST[i].k;if(raw.indexOf(k)===0){var rest=raw.slice(k.length);if(/^\d{1,2}$/.test(rest)&&+rest>=1&&+rest<=52){hit=LIST[i];num=+rest}break}}
- if(!hit){msg.textContent="We couldn't match that code. Codes look like NPSJ01 (category letters + number 01 to 52). Check it and try again.";msg.className="frmsg bad";return}
+ var hit=null,num=0;for(var i=0;i<LIST.length;i++){var k=LIST[i].k;if(raw.indexOf(k)===0){var rest=raw.slice(k.length);if(/^\d{1,2}$/.test(rest)&&+rest>=1&&+rest<=99){hit=LIST[i];num=+rest}break}}
+ if(!hit){msg.textContent="We couldn't match that code. Codes look like NPSJ01 (category letters + number 01 to 99). Check it and try again.";msg.className="frmsg bad";return}
  var shown=hit.k+(num<10?"0":"")+num;
  var d=D[hit.n];
  res.innerHTML='<p class="rcat">'+esc(hit.n)+'</p><p class="rcode">'+esc(shown)+'</p>'+rows(d.c,"c","Competition room",hit.n)+rows(d.w,"w","Waiting room",hit.n)+(d.n?'<p class="rn">'+esc(d.n)+'</p>':"");
