@@ -17,26 +17,51 @@
   <header class="top">
     <a class="logo" href="#top" id="lg" aria-label="ISAC 2026"></a>
     <nav aria-label="Main">
+      <a href="#sitemap">Site Map</a>
       <a href="#about">About</a>
       <a href="#competitions">Competitions</a>
       <a href="#gallery" id="gnav">Gallery</a>
       <a href="#committee">Board of Officials</a>
-      <a class="rules" href="#" target="_blank" rel="noopener">Rules &amp; Regulations</a>
       <a href="#contact">Contact</a>
-      <button class="btn ghost" id="login">School login</button>
     </nav>
   </header>
   <div class="hero" id="top">
     <p class="kick">Ananda College Broadcasting Unit</p>
     <h1 id="hl"></h1>
     <p class="when" id="sub"></p>
-    <div class="bt">
-      <button class="btn" id="reg">Register your school</button>
-      <button class="btn two" id="regteam"><span class="b1">Register Team</span><span class="b2">School login</span></button>
-      <a class="btn ghost rules" href="#" target="_blank" rel="noopener">Explore the rules</a>
-    </div>
     <img id="hero" alt="">
   </div>
+  <section id="sitemap"><h2>Site Map</h2>
+    <div class="fr">
+      <div class="frl">
+        <h3>Find your competition room</h3>
+        <p class="frh">Enter your contestant code to see your competition room and waiting room, and where to find them on the map.</p>
+        <form class="frform" id="frf" autocomplete="off" novalidate>
+          <label for="frc">Contestant code</label>
+          <input id="frc" name="code" placeholder="e.g. NPSJ01" autocapitalize="characters" spellcheck="false" maxlength="24">
+          <button class="btn" id="frb" type="submit">Find my room</button>
+        </form>
+        <div class="frmsg" id="frm" role="status" aria-live="polite"></div>
+        <div class="frres" id="frr" hidden></div>
+      </div>
+      <div class="frr2">
+        <div class="frmap" id="frmap"><img src="site-map-single.jpg" alt="Map of the Ananda College school grounds with numbered sections"></div>
+        <p class="frleg"><i class="d k-c"></i>Competition room <i class="d k-w"></i>Waiting room</p>
+        <h4 class="refh">References</h4>
+        <ol class="refs" id="refs">
+          <li data-n="1"><i>1</i>Kularathne Auditorium</li>
+          <li data-n="2"><i>2</i>Sathmahala</li>
+          <li data-n="3"><i>3</i>Olcott Hall</li>
+          <li data-n="4"><i>4</i>Art Section</li>
+          <li data-n="5"><i>5</i>Biology Section</li>
+          <li data-n="6"><i>6</i>Grade 11 Section</li>
+          <li data-n="7"><i>7</i>Technology Section</li>
+          <li data-n="8"><i>8</i>Grade 10 Section</li>
+        </ol>
+      </div>
+    </div>
+    <div class="bt frpdf"><a class="btn ghost" href="site-map.pdf" target="_blank" rel="noopener">Floor plans (PDF)</a><a class="btn ghost" href="site-map.pdf" download>Download PDF</a></div>
+  </section>
   <section id="about"><h2>About</h2><div class="pre" id="ab"></div></section>
   <section id="competitions"><h2>Competitions</h2><div class="grid" id="comps"></div></section>
   <section id="gallery"><h2>Gallery</h2><div class="gal" id="gal"></div></section>
@@ -96,6 +121,7 @@
 <div class="ov" id="ov" role="dialog" aria-modal="true"><div class="box" id="box"></div></div>
 <script src="config.js"></script>
 <script src="app.js"></script>
+<script src="find.js"></script>
 <script src="gallery.js"></script>
 </body>
 </html>
